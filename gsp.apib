@@ -10,9 +10,13 @@ gSP API is a API allowing any products move along the supply chain flows.
 Supply Chain is the channel for moving materials and goods and services from your supplier to your customer.
 Logistics is the process of filling a customer's order.
 
-## Supplier Collection [/questions]
+# Group Supplier
+## Supplier [/supplier/{supplier_id}]
 
-### List All Questions [GET]
++ Parameters
+    + supplier_id (number) - ID of the Question in the form of an integer
+
+### List All Supplier [GET]
 
 + Response 200 (application/json)
 
@@ -85,10 +89,11 @@ form of choices.
             }
 
 # Group Warehouse
-## /warehouse/
-### GET
+## View All Warehouse [/warehouse/{limit}&{offset}&{sort}&{search}]
+
+### View Warehouse [GET]
 + Parameters
-    + limit (int, required)
+    + limit (int, optional) - The maximum
         + Default: 10
     + offset (int, required)
     + sort (enum[string], optional)
@@ -97,8 +102,9 @@ form of choices.
             + `-name`
     + search (unicodestring, optional)
 
+
 + Response 200 (application/json)
-### POST
+### Create [POST]
 The body of this request should be a JSON object containing the following parameters:
 
 | Name | Type | Description |
@@ -113,38 +119,13 @@ The body of this request should be a JSON object containing the following parame
 | `email` | unicodestring |  |
 | `phone` | unicodestring |  |
 | `cart_id` | unicodestring |  |
-+ Response 200 (application/json)
-## /warehouse/{warehouse_id}/
-### GET
-+ Parameters
-    + limit (int, required)
-        + Default: 10
-    + offset (int, required)
-    + sort (enum[string], optional)
-        + Members
-            + `name`
-            + `-name`
-    + search (unicodestring, optional)
 
 + Response 200 (application/json)
-### PUT
-The body of this request should be a JSON object containing the following parameters:
 
-| Name | Type | Description |
-|------|------|-------------|
-| `name` | unicodestring |  |
-| `street1` | unicodestring |  |
-| `street2` | unicodestring |  |
-| `city` | unicodestring |  |
-| `state` | unicodestring |  |
-| `zip` | unicodestring |  |
-| `country` | unicodestring |  |
-| `email` | unicodestring |  |
-| `phone` | unicodestring |  |
-| `cart_id` | unicodestring |  |
-+ Response 200 (application/json)
-## /warehouse/{warehouse_id}/make_default/
-### POST
+## Default Warehouse [/warehouse/{warehouse_id}/make_default/]
++Parameters
+    + warehouse_id (string)
+### Set Default [POST]
 + Response 200 (application/json)
 
 # Group Products
