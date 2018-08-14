@@ -1,0 +1,149 @@
+FORMAT: 1A
+HOST: http://gsp.apiblueprint.org/
+
+# gSP API Documentation (For approval)
+
+gSP API is a API allowing any products move along the supply chain flows.
+
+# All About Supply chain
+
+Supply Chain is the channel for moving materials and goods and services from your supplier to your customer.
+Logistics is the process of filling a customer's order.
+
+## Supplier Collection [/questions]
+
+### List All Questions [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 2048
+                    }, {
+                        "choice": "Python",
+                        "votes": 1024
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 512
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 256
+                    }
+                ]
+            }
+        ]
+
+### Create a New Question [POST]
+
+You may create your own question using this action. It takes a JSON
+object containing a question and a collection of answers in the
+form of choices.
+
++ Request (application/json)
+
+        {
+            "question": "Favourite programming language?",
+            "choices": [
+                "Swift",
+                "Python",
+                "Objective-C",
+                "Ruby"
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /questions/2
+
+    + Body
+
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
+
+# Group Warehouse
+## /warehouse/
+### GET
++ Parameters
+    + limit (int, required)
+        + Default: 10
+    + offset (int, required)
+    + sort (enum[string], optional)
+        + Members
+            + `name`
+            + `-name`
+    + search (unicodestring, optional)
+
++ Response 200 (application/json)
+### POST
+The body of this request should be a JSON object containing the following parameters:
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | **unicodestring**, *required* |  |
+| `street1` | unicodestring |  |
+| `street2` | unicodestring |  |
+| `city` | unicodestring |  |
+| `state` | unicodestring |  |
+| `zip` | unicodestring |  |
+| `country` | unicodestring |  |
+| `email` | unicodestring |  |
+| `phone` | unicodestring |  |
+| `cart_id` | unicodestring |  |
++ Response 200 (application/json)
+## /warehouse/{warehouse_id}/
+### GET
++ Parameters
+    + limit (int, required)
+        + Default: 10
+    + offset (int, required)
+    + sort (enum[string], optional)
+        + Members
+            + `name`
+            + `-name`
+    + search (unicodestring, optional)
+
++ Response 200 (application/json)
+### PUT
+The body of this request should be a JSON object containing the following parameters:
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | unicodestring |  |
+| `street1` | unicodestring |  |
+| `street2` | unicodestring |  |
+| `city` | unicodestring |  |
+| `state` | unicodestring |  |
+| `zip` | unicodestring |  |
+| `country` | unicodestring |  |
+| `email` | unicodestring |  |
+| `phone` | unicodestring |  |
+| `cart_id` | unicodestring |  |
++ Response 200 (application/json)
+## /warehouse/{warehouse_id}/make_default/
+### POST
++ Response 200 (application/json)
+
