@@ -5,10 +5,48 @@ HOST: http://gsp.apiblueprint.org/
 
 gSP API is a API allowing any products move along the supply chain flows.
 
-# All About Supply chain
+# Overview
+
+## Platform (ref: orderbot)
+
++ **Order Management**
+- Channels - To Segment Business
+- Order Statuses - To Create Workflow
+- Variables - To Determine & Automate Status
+- Order Orchestration - Conduct Orders Across All Sales Channels 
++ **Product Management** 
+- Commerce PIM - Multi-channel Definitions
+- Robust Profile - Infinite Product Details & Fields 
+- Tags - Create & Assign Unlimited # Of Attributes
+- Sync - Single Product Pushed To Multiple Channels
++ **Sales Management** 
+- Pre-integrated - For B2C
+- Price Control - Unlimited Price Lists
+- B2B - Full Cycle Wholesale Management
+- Phone Orders - Fast, Simple Order Entry
++ **Inventory Management**
+- Omni Channel - For B2C And B2B
+- Accuracy - Logs Of All Count & Adjustments
+- Traceability - Logs Of All Transactions
+- Future Visibility - Inventory As A Function Of Time
+- Transparency - Confidence Of Inventory Levels Through Allocations, Thresholds, & Data Logs
++ **Warehouse Management**
+- Multi-warehouse - Ready Of Growth
+- Batch Processes - Pick & Pack More, Faster
+- Scanning - Eliminate Errors
+- Ship Integrations - FedEx, UPS, USPS, DHL
++ **Customer Management**
+- Contact Centre - Record & Segment Customers
+- Customer Dashboard - Insight To Clients
+- Notes - Record Issues, & Schedule Follow-ups
+- Order History - Visibility On All Purchases
+- Returns - Turn A Bad Situation Into An Opportunity
+
+## All About Supply chain
 
 Supply Chain is the channel for moving materials and goods and services from your supplier to your customer.
 Logistics is the process of filling a customer's order.
+
 
 # Group Supplier
 ## Supplier [/supplier/{supplier_id}]
@@ -89,6 +127,37 @@ form of choices.
             }
 
 # Group Warehouse
+
+## Goods-In Note Correction [/warehouse/good_in_correct]
+This resource allows you to correct the quantity of stock received on a batch.
+### POST [POST]
++ Response 200 (application/json)
+
+## Goods-In Note [/warehouse/good_in]
+A Goods-In Note is used to represent stock entering your stock control system for the first time. It is most often used when stock is delivered from a supplier to one of your Warehouses.
+### GET [GET]
++ Response 200 (application/json)
+### POST [POST]
++ Response 200 (application/json)
+### DELETE [DELETE]
++ Response 200 (application/json)
+
+## Goods-Out Note [/warehouse/good_out]
+Goods-Out Notes are used to represent stock permanently leaving your stock control system. The most common use of a Goods-Out Note is to facilitate the fulfilment of a Sales Order.
+### GET [GET]
++ Response 200 (application/json)
+### POST [POST]
++ Response 200 (application/json)
+### PUT [PUT]
++ Response 200 (application/json)
+### DELETE [DELETE]
++ Response 200 (application/json)
+
+## Goods-Out Note Event [/warehouse/good_out_event]
+A goods-out note event represents an event in the lifecycle of a goods-out note such as picked, packed and shipped.
+### POST [POST]
++ Response 200 (application/json)
+
 ## View All Warehouse [/warehouse/{limit}&{offset}&{sort}&{search}]
 
 ### View Warehouse [GET]
@@ -101,7 +170,6 @@ form of choices.
             + `name`
             + `-name`
     + search (unicodestring, optional)
-
 
 + Response 200 (application/json)
 ### Create [POST]
@@ -125,7 +193,16 @@ The body of this request should be a JSON object containing the following parame
 ## Default Warehouse [/warehouse/{warehouse_id}/make_default/]
 +Parameters
     + warehouse_id (string)
+
 ### Set Default [POST]
 + Response 200 (application/json)
 
 # Group Products
+
+# Group Money
+
+## Currency
+
+# Group User
+
+## Concurrent User
