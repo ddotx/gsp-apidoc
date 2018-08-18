@@ -47,84 +47,186 @@ gSP API is a API allowing any products move along the supply chain flows.
 Supply Chain is the channel for moving materials and goods and services from your supplier to your customer.
 Logistics is the process of filling a customer's order.
 
+# Group Order
 
-# Group Supplier
-## Supplier [/supplier/{supplier_id}]
+## Order Detail [/order/{order_id}]
+### List Orders [GET]
+Returns a description of the requested orders. As well as general data about the order, such as its ID, its type and when it was created
 
 + Parameters
-    + supplier_id (number) - ID of the Question in the form of an integer
+    + order_id (int)
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 100182,
+                "parentOrderId": 100181,
+                "orderTypeCode": "PO",
+                "reference": "order#001",
+                "version": 1,
+                "state":
+                    {
+                    "tax": "ready"
+                    }
+                "acknowledged": 0,
+                "orderStatus": 
+                    {
+                    "orderStatusId": 6,
+                    "name": "Pending PO"
+                    },
+                "orderPaymentStatus": "PAID",
+                "stockStatusCode": "NON",
+                "allocationStatusCode": "ANR",
+                "shippingStatusCode": "NST",
+                "placedOn": "2011-06-29T11:12:24.000+01:00",
+                "createdOn": "2011-06-29T11:12:24.000+01:00",
+                "updatedOn": "2011-06-30T15:35:01.000+01:00",
+                "closedOn": "2011-06-30T15:35:01.000+01:00",
+                "createdById": 200,
+                "priceListId": 1,
+                "priceModeCode": "EXC",
+                "delivery":
+                    {
+                    "deliveryDate": "2011-07-08T00:00:00.000+01:00",
+                    "shippingMethodId": 1
+                    }
+            }
+        ]
+
+## Order Shipping Status [/order-shipping-status]
+### View All Order [GET]
+Order shipping status codes indicate the shipping status of a sale, credit or purchase.
++ Response 200 (application/json)
+
+        [   
+            {
+                "id": 1,
+                "code": "NST",
+                "description": "No stock tracked products on order"
+            },
+            {
+                "id": 2,
+                "code": "SNS",
+                "description": "Stock not shipped"
+            },
+            {
+                "id": 3,
+                "code": "SPS",
+                "description": "Stock part shipped"
+            },
+            {
+                "id": 4,
+                "code": "ASS",
+                "description": "All stock shipped"
+            }
+        ]
+
+## Order Stock Status [/order-stock-status]
+### View All Order [GET]
+Order stock status codes indicate the fulfilment status of a sale, credit or purchase
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "code": "SON",
+                "description": "Sales Order Not Fulfilled"
+            },
+            {
+                "id": 2,
+                "code": "SOP",
+                "description": "Sales Order Part Fulfilled"
+            },
+            {
+                "id": 3,
+                "code": "SOA",
+                "description": "Sales Order All Fulfilled"
+            }
+        ]
+
+## Order
+# Group Supplier
+## All Supplier [/supplier/{limit}&{offset}&{sort}&{search}]
 
 ### List All Supplier [GET]
++ Parameters
+    + limit (int, optional)
+        + Default: 10
+    + offset (int, required)
+    + sort (enum[string], optional)
+    + search (unicodestring, optional)
 
 + Response 200 (application/json)
 
         [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
+                "title": "All Supplier",
+                "updated_at": "2015-08-05T08:40:51.620Z",
+                "Supplier": [
                     {
-                        "choice": "Swift",
-                        "votes": 2048
+                        "id": 001,
+                        "name": "supplier title A"
                     }, {
-                        "choice": "Python",
-                        "votes": 1024
+                        "id": 002,
+                        "name": "supplier title B"
                     }, {
-                        "choice": "Objective-C",
-                        "votes": 512
+                        "id": 003,
+                        "name": "supplier title C"
                     }, {
-                        "choice": "Ruby",
-                        "votes": 256
+                        "id": 004,
+                        "name": "supplier title D"
                     }
                 ]
             }
         ]
 
-### Create a New Question [POST]
+### Create a New Supplier [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+The body of this request should be a JSON object containing the following parameters:
 
-+ Request (application/json)
+| Name | Type | Description |
+|------|------|-------------|
+| `company` | **unicodestring**, *required* |  |
+| `name` | unicodestring |  |
+| `street1` | unicodestring |  |
+| `street2` | unicodestring |  |
+| `city` | unicodestring |  |
+| `state` | unicodestring |  |
+| `zip` | unicodestring |  |
+| `country` | unicodestring |  |
+| `email` | **unicodestring**, *required* |  |
+| `phone` | unicodestring |  |
+| `fax` | unicodestring |  |
+| `reference_number` | unicodestring |  |
+| `cart_address_id` | unicodestring |  |
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
++ Response 200 (application/json)
 
-+ Response 201 (application/json)
+## Supplier Detail [/supplier/{supplier_id}]
+### View Supplier Detail [GET]
++ Parameters
+    + supplier_id (int)
 
-    + Headers
-
-            Location: /questions/2
-
-    + Body
-
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
++ Response 200 (application/json)
+### Update Supplier Detail [PUT]
+| Name | Type | Description |
+|------|------|-------------|
+| `company` | unicodestring |  |
+| `name` | unicodestring |  |
+| `street1` | unicodestring |  |
+| `street2` | unicodestring |  |
+| `city` | unicodestring |  |
+| `state` | unicodestring |  |
+| `zip` | unicodestring |  |
+| `country` | unicodestring |  |
+| `email` | unicodestring |  |
+| `phone` | unicodestring |  |
+| `fax` | unicodestring |  |
+| `reference_number` | unicodestring |  |
+| `cart_address_id` | unicodestring |  |
+| `validation` | [ValidationNugget](/#reference/model-validationnugget) |  |
+| `validate` | stringbool |  |
++ Response 200 (application/json)
 
 # Group Warehouse
 
@@ -198,6 +300,75 @@ The body of this request should be a JSON object containing the following parame
 + Response 200 (application/json)
 
 # Group Products
+
+## View Product [/product/{limit}&{offset}&{sort}&{search}&{status}&{cart}]
+### List All Products [GET]
++ Parameters
+    + limit (int, optional)
+        + Default: 10
+    + offset (int, required)
+    + sort (enum[string], optional)
+        + Members
+            + `name`
+            + `-name`
+            + `sku`
+            + `-sku`
+            + `created`
+            + `-created`
+            + `default_supplier`
+            + `-default_supplier`
+    + search (unicodestring, optional)
+    + status (enum[string], optional)
+        + Members
+            + `kit_parent`
+            + `kit_component`
+            + `low_inventory`
+            + `always_dropship`
+            + `never_dropship`
+            + `needs_sync`
+            + `to_be_shipped`
+            + `oversold`
+            + `archived`
+            + `active`
+            + `all`
+    + cart (int, required)
++ Response 200 (application/json)
+### Create New Product [POST]
+The body of this request should be a JSON object containing the following parameters:
+
+| Name | Type | Description |
+|------|------|-------------|
+| `sku` | **sku**, *required* |  |
+| `name` | unicodestring |  |
+| `category` | unicodestring |  |
+| `price` | **number**, *required* |  |
+| `weight` | **number**, *required* |  |
+| `length` | int |  |
+| `height` | int |  |
+| `width` | int |  |
+| `taxable` | unicodestring |  |
+| `cost` | **number**, *required* |  |
+| `type` | unicodestring |  |
+| `upc` | unicodestring |  |
+| `asin` | unicodestring |  |
+| `on_hand` | **number**, *required* |  |
+| `low_stock_threshold` | **number**, *required* |  |
+| `out_of_stock_threshold` | **number**, *required* |  |
+| `cart` | **int**, *required* |  |
+| `sync` | stringbool |  |
+| `original_sku` | unicodestring |  |
+| `variant_sku` | unicodestring |  |
+| `inventory_changed` | stringbool |  |
+| `max_export_qty` | int |  |
+| `images` | [NewProductImage](/#reference/model-newproductimage) |  |
+| `amazon_extra_info` | [NewAmazonExtraInfo](/#reference/model-newamazonextrainfo) |  |
+| `ebay_extra_info` | [NewEbayExtraInfo](/#reference/model-newebayextrainfo) |  |
+| `channeladvisor_extra_info` | [NewChannelAdvisorExtraInfo](/#reference/model-newchanneladvisorextrainfo) |  |
+| `jet_extra_info` | [NewJetExtraInfo](/#reference/model-newjetextrainfo) |  |
+| `etsy_extra_info` | [NewEtsyExtraInfo](/#reference/model-newetsyextrainfo) |  |
+| `walmart_extra_info` | [NewWalmartExtraInfo](/#reference/model-newwalmartextrainfo) |  |
+| `audit_import` | [ProductAuditImport](/#reference/model-productauditimport) |  |
++ Response 200 (application/json)
 
 # Group Money
 
